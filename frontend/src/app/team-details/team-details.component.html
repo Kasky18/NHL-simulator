@@ -1,0 +1,21 @@
+<h2>Employee Details</h2>
+
+<hr/>
+<div *ngIf="team">
+  <div>
+    <label><b>Team Name: </b></label> {{team.teamName}}
+  </div>
+  <div>
+    <label><b>Team Shortcut: </b></label> {{team.teamShortcut}}
+  </div>
+  <div>
+    <label><b>Division: </b></label> {{team.division}}
+  </div>
+  <div>
+    <label><b>Conference: </b></label> {{team.conference}}
+  </div>
+</div>
+
+<br>
+<br>
+<button (click)="list()" class="btn btn-primary">Back to Team List</button><br>

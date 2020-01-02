@@ -1,0 +1,27 @@
+<h3>Update Employee</h3>
+<div [hidden]="submitted" style="width: 400px;">
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label>Team Name</label>
+      <input type="text" class="form-control" id="teamName" required [(ngModel)]="team.teamName" name="teamName">
+    </div>
+
+    <div class="form-group">
+      <label>Team Shortcut</label>
+      <input type="text" class="form-control" id="teamShortcut" required [(ngModel)]="team.teamShortcut"
+             name="teamShortcut">
+    </div>
+
+    <div class="form-group">
+      <label>Division</label>
+      <input type="text" class="form-control" id="division" required [(ngModel)]="team.division" name="division">
+    </div>
+
+    <div class="form-group">
+      <label>Conference</label>
+      <input type="text" class="form-control" id="conference" required [(ngModel)]="team.conference" name="conference">
+    </div>
+
+    <button type="submit" class="btn btn-success">Update</button>
+  </form>
+</div>
