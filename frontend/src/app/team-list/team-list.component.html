@@ -10,16 +10,18 @@
         <th>TeamShct</th>
         <th>D</th>
         <th>C</th>
-        <th>skuska</th>
+        <th>W</th>
+        <th>L</th>
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let team of teams | async">
+      <tr *ngFor="let team of teamTest ">
         <td>{{team.teamName}}</td>
-        <td>{{team.teamShortcut}}</td>
+        <td>{{team.teamShortcut | uppercase}}</td>
         <td>{{team.division}}</td>
         <td>{{team.conference}}</td>
-        <td>{{getNumber(team.teamId)}}</td>
+        <td>{{team.wins}}</td>
+        <td>{{team.loses}}</td>
         <td>
           <button (click)="updateTeam(team.teamId)" class="btn btn-info" style="margin-left: 10px">Update</button>
         <td>
