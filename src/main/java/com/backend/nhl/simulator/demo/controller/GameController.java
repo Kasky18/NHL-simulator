@@ -3,10 +3,8 @@ package com.backend.nhl.simulator.demo.controller;
 import com.backend.nhl.simulator.demo.exceptions.ResourceNotFoundException;
 import com.backend.nhl.simulator.demo.model.Game;
 import com.backend.nhl.simulator.demo.repository.GameRepository;
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RestController
@@ -25,12 +22,8 @@ public class GameController {
     @PersistenceContext
     private EntityManager manager;
 
-
     @Autowired
     private GameRepository gameRepository;
-
-    private Session session;
-
 
     /*
      * vrati zoznam vsetkych zapasov + vsetkych podla timu a kola
@@ -74,8 +67,8 @@ public class GameController {
     }
 
     /*
-    * vrati zoznam domacich a hostujucich zapasov timu
-    * */
+     * vrati zoznam domacich a hostujucich zapasov timu
+     * */
     @GetMapping("/home/games/{id}")
     public List<Game> getHomeGamesByTeam(@PathVariable(value = "id") int id) {
         return manager.createNamedQuery("Game.getHomeGamesByTeam", Game.class).setParameter("id", id).getResultList();
@@ -94,12 +87,15 @@ public class GameController {
         return getHomeGamesByTeam(id).size() + getAwayGamesByTeam(id).size();
     }
 
+    /*
+     * vrati pocet vstrelenych golov v domacich, hostujucih zapasov + celkovo pre tim
+     * */
     @GetMapping("/home/goals/for/{id}")
     public Integer getHomeGoalsForByTeam(@PathVariable(value = "id") int id) {
 
         Integer goals = null;
         try {
-             goals = ((Number) manager.createNamedQuery("Game.getHomeGoalsForByTeam").setParameter("id", id).getSingleResult()).intValue();
+            goals = ((Number) manager.createNamedQuery("Game.getHomeGoalsForByTeam").setParameter("id", id).getSingleResult()).intValue();
         } catch (NoResultException e) {
             System.out.println("No result found.");
         }
@@ -124,6 +120,10 @@ public class GameController {
         return getHomeGoalsForByTeam(id) + getAwayGoalsForByTeam(id);
     }
 
+
+    /*
+     * vrati pocet inkasovanych golov v domacich, hostujucih zapasov + celkovo pre tim
+     * */
     @GetMapping("/home/goals/against/{id}")
     public Integer getHomeGoalsAgainstByTeam(@PathVariable(value = "id") int id) {
 
@@ -149,14 +149,18 @@ public class GameController {
         return (goals == null) ? 0 : goals;
     }
 
-    //
+
     @GetMapping("/goals/against/{id}")
     public Integer getAllGoalsAgainstByTeam(@PathVariable(value = "id") int id) {
         return getHomeGoalsAgainstByTeam(id) + getAwayGoalsAgainstByTeam(id);
-
     }
 
 
+    @GetMapping("/points/{id}")
+    public Integer getAllPointsByTeam(@PathVariable(value = "id") int id) {
+        Integer points = getGameStatusByTeam("win", id) * 2;
+        return points;
+    }
 
 
 }

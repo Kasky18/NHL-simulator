@@ -26,8 +26,8 @@ export class GameListComponent implements OnInit {
     this.games = this.gameService.getGamesList();
   }
 
-  getNumber(id : number){
-    this.gameService.getGameStatusByTeam(id,"win").subscribe((data) => this.wins=data);
+  getNumber(id: number) {
+    this.gameService.getGameStatusByTeam(id, "win").subscribe((data) => this.wins = data);
 
   }
 

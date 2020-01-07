@@ -20,13 +20,13 @@ export class TeamListComponent implements OnInit {
   }
 
   ngOnInit() {
-   // this.getNumber(1);
+    // this.getNumber(1);
     this.reloadData();
   }
 
 
   reloadData() {
-   this.teams = this.teamService.getTeamsList();
+    this.teams = this.teamService.getTeamsList();
   }
 
   updateTeam(id: number) {
@@ -38,10 +38,30 @@ export class TeamListComponent implements OnInit {
 
   }
 
-  getNumber(id : number){
-    this.gameService.getGameStatusByTeam(id,"win").subscribe((data) => this.wins=data);
-    console.log(id,this.wins);
+  getNumber(id: number) {
+    this.gameService.getGameStatusByTeam(id, "win").subscribe((data) => this.wins = data);
+    console.log(id, this.wins);
 
   }
+
+  // submit(id)  {
+  //   const combined = forkJoin([
+  //     this.teamService.getTeamsList(),
+  //     this.gameService.getGameStatusByTeam(id,"win")
+  //   ]);
+  //   combined.subscribe((response) => {
+  //     // you will get 2 arrays in response
+  //
+  //     this.teams = response[0];
+  //    this.wins = response[1];
+  //     console.log("co som dostal",this.teams);
+  //     console.log("vyhry",this.wins);
+  //     this.ids.push(this.teams);
+  //     this.ids.push(this.wins);
+  //
+  //     //this.teams.forEach(team => this.ids.push(team.teamId));
+  //   });
+  //  console.log("co som dostal za id",this.ids);
+  // }
 
 }
