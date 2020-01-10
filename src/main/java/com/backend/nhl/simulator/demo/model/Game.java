@@ -1,5 +1,7 @@
 package com.backend.nhl.simulator.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 @Entity(name = "Game")
@@ -43,10 +45,12 @@ public class Game {
     private String homeTeamStatus;
     private String awayTeamStatus;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonBackReference
     private Team homeTeam;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonBackReference
     private Team awayTeam;
 
     private int homeGoals;
