@@ -7,21 +7,39 @@ import {Observable} from "rxjs";
 })
 export class GameService {
 
-  private baseUrl = 'http://localhost:8080/games';
+  private baseUrl = 'http://localhost:8080/';
+  private baseUrlGames = 'http://localhost:8080/games';
+  private baseUrlGoals = 'http://localhost:8080/goals';
 
   constructor(private http: HttpClient) {
   }
 
   getGamesList(): Observable<any> {
-    return this.http.get(`${this.baseUrl}`);
+    return this.http.get(`${this.baseUrlGames}`);
   }
 
   getGameById(id: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/${id}`);
+    return this.http.get(`${this.baseUrlGames}/${id}`);
   }
 
   getGameStatusByTeam(id: number, status: string): Observable<any> {
-    return this.http.get(`${this.baseUrl}/${status}/${id}`);
+    return this.http.get(`${this.baseUrlGames}/${status}/${id}`);
+  }
+
+  getPointsByTeam(id: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/points/${id}`);
+  }
+
+  getGoalsForTeam(id: number): Observable<any> {
+    return this.http.get(`${this.baseUrlGoals}/for/${id}`);
+  }
+
+  getGoalsAgainstTeam(id: number): Observable<any> {
+    return this.http.get(`${this.baseUrlGoals}/against/${id}`);
+  }
+
+  getGamesPlayedByTeam(id: number): Observable<any> {
+    return this.http.get(`${this.baseUrlGames}/${id}`)
   }
 
 

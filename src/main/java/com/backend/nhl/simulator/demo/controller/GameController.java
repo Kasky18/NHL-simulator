@@ -33,7 +33,7 @@ public class GameController {
         return gameRepository.findAll();
     }
 
-    @GetMapping("/games/{id}")
+    @GetMapping("/game/{id}")
     public ResponseEntity<Game> getGameById(@PathVariable(value = "id") int gameId) throws ResourceNotFoundException {
         Game game = gameRepository.findById(gameId).orElseThrow(() -> new ResourceNotFoundException("Game not found for this id :: " + gameId));
         return ResponseEntity.ok().body(game);
@@ -82,7 +82,7 @@ public class GameController {
     /*
      * vrati celkovy pocet zapasov timu
      * */
-    @GetMapping("/games/all/{id}")
+    @GetMapping("/games/{id}")
     public Integer getNumberOfGamesByTeam(@PathVariable(value = "id") int id) {
         return getHomeGamesByTeam(id).size() + getAwayGamesByTeam(id).size();
     }

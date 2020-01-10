@@ -50,13 +50,32 @@ export class TeamListComponent implements OnInit {
           return from(res).pipe(
             mergeMap(teamTest => {
 
+              // @ts-ignore
+              const {teamId} = teamTest;
               return forkJoin([
-                this.gameService.getGameStatusByTeam(teamTest.teamId, "win"),
-                this.gameService.getGameStatusByTeam(teamTest.teamId, "loss")
+                this.gameService.getGameStatusByTeam(teamId, "win"),
+                this.gameService.getGameStatusByTeam(teamId, "loss"),
+                this.gameService.getGameStatusByTeam(teamId, "overtime_lose"),
+                this.gameService.getPointsByTeam(teamId),
+                this.gameService.getGoalsForTeam(teamId),
+                this.gameService.getGoalsAgainstTeam(teamId),
+                this.gameService.getGamesPlayedByTeam(teamId)
               ]).pipe(
                 map(data => {
+                  // @ts-ignore
                   teamTest.wins = data[0];
+                  // @ts-ignore
                   teamTest.loses = data[1];
+                  // @ts-ignore
+                  teamTest.overtimeLoses = data[2];
+                  // @ts-ignore
+                  teamTest.points = data[3];
+                  // @ts-ignore
+                  teamTest.goalsFor = data[4];
+                  // @ts-ignore
+                  teamTest.goalsAgainst = data[5];
+                  // @ts-ignore
+                  teamTest.gamesPlayed = data[6];
                   return teamTest;
                 })
               )
