@@ -6,23 +6,20 @@
     <table class="table table-striped">
       <thead>
       <tr>
-        <th>GameId</th>
         <th>Round</th>
         <th>Home</th>
+        <th>vs</th>
         <th>Away</th>
-        <th>Home Goals</th>
-        <th>Away goals</th>
-        <th>wins = {{this.wins}}</th>
+        <th>GF : GA</th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let game of games | async">
-        <td>{{game.gameId}}</td>
         <td>{{game.round}}</td>
-        <td>{{game.homeTeam.teamName}}</td>
-        <td>{{game.awayTeam.teamName}}</td>
-        <td>{{game.homeGoals}}</td>
-        <td>{{game.awayGoals}}</td>
+        <td><img src="assets/team_logos/{{game.homeTeam.teamShortcut}}.png"> {{game.homeTeam.teamName}}</td>
+        <td>vs</td>
+        <td><img src="assets/team_logos/{{game.awayTeam.teamShortcut}}.png"> {{game.awayTeam.teamName}}</td>
+        <td>{{game.homeGoals}} : {{game.awayGoals}}</td>
       </tr>
       </tbody>
     </table>

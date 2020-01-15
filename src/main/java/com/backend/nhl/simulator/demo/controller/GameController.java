@@ -67,22 +67,32 @@ public class GameController {
     }
 
     /*
-     * vrati zoznam domacich a hostujucich zapasov timu
+     * vrati pocet domacich a hostujucich zapasov timu
      * */
-    @GetMapping("/home/games/{id}")
+    @GetMapping("/games/home/{id}")
     public List<Game> getHomeGamesByTeam(@PathVariable(value = "id") int id) {
         return manager.createNamedQuery("Game.getHomeGamesByTeam", Game.class).setParameter("id", id).getResultList();
     }
 
-    @GetMapping("/away/games/{id}")
+    @GetMapping("/games/away/{id}")
     public List<Game> getAwayGamesByTeam(@PathVariable(value = "id") int id) {
         return manager.createNamedQuery("Game.getAwayGamesByTeam", Game.class).setParameter("id", id).getResultList();
     }
 
     /*
-     * vrati celkovy pocet zapasov timu
+     * vrati pocet zapasov timu doma, vonku + celkovo
      * */
-    @GetMapping("/games/all/{id}")
+    @GetMapping("/games/home/count/{id}")
+    public Integer getNumberOfHomeGamesByTeam(@PathVariable(value = "id") int id) {
+        return getHomeGamesByTeam(id).size();
+    }
+
+    @GetMapping("/games/away/count/{id}")
+    public Integer getNumberOfAwayGamesByTeam(@PathVariable(value = "id") int id) {
+        return getAwayGamesByTeam(id).size();
+    }
+
+    @GetMapping("/games/all/count/{id}")
     public Integer getNumberOfGamesByTeam(@PathVariable(value = "id") int id) {
         return getHomeGamesByTeam(id).size() + getAwayGamesByTeam(id).size();
     }
@@ -90,7 +100,7 @@ public class GameController {
     /*
      * vrati pocet vstrelenych golov v domacich, hostujucih zapasov + celkovo pre tim
      * */
-    @GetMapping("/home/goals/for/{id}")
+    @GetMapping("/goals/home/for/{id}")
     public Integer getHomeGoalsForByTeam(@PathVariable(value = "id") int id) {
 
         Integer goals = null;
@@ -103,7 +113,7 @@ public class GameController {
         return (goals == null) ? 0 : goals;
     }
 
-    @GetMapping("/away/goals/for/{id}")
+    @GetMapping("/goals/away/for/{id}")
     public Integer getAwayGoalsForByTeam(@PathVariable(value = "id") int id) {
         Integer goals = null;
         try {
@@ -124,7 +134,7 @@ public class GameController {
     /*
      * vrati pocet inkasovanych golov v domacich, hostujucih zapasov + celkovo pre tim
      * */
-    @GetMapping("/home/goals/against/{id}")
+    @GetMapping("/goals/home/against/{id}")
     public Integer getHomeGoalsAgainstByTeam(@PathVariable(value = "id") int id) {
 
         Integer goals = null;
@@ -137,7 +147,7 @@ public class GameController {
         return (goals == null) ? 0 : goals;
     }
 
-    @GetMapping("/away/goals/against/{id}")
+    @GetMapping("/goals/away/against/{id}")
     public Integer getAwayGoalsAgainstByTeam(@PathVariable(value = "id") int id) {
         Integer goals = null;
         try {
@@ -155,6 +165,20 @@ public class GameController {
         return getHomeGoalsAgainstByTeam(id) + getAwayGoalsAgainstByTeam(id);
     }
 
+    /*
+    vrati pocet bodov ziskanych doma, vonku + celkovo
+     */
+    @GetMapping("/points/home/{id}")
+    public Integer getHomePointsByTeam(@PathVariable(value = "id") int id) {
+        Integer points = getGameStatusByHomeTeam("win", id) * 2;
+        return points;
+    }
+
+    @GetMapping("/points/away/{id}")
+    public Integer getAwayPointsByTeam(@PathVariable(value = "id") int id) {
+        Integer points = getGameStatusByAwayTeam("win", id) * 2;
+        return points;
+    }
 
     @GetMapping("/points/{id}")
     public Integer getAllPointsByTeam(@PathVariable(value = "id") int id) {

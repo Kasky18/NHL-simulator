@@ -1,25 +1,40 @@
 <div class="panel panel-primary">
   <div class="panel-heading">
     <h2>Team List</h2>
+    <p>
+      <button (click)="showOverallTableOfTeams()" class="btn btn-info" style="margin-left: 10px">Overall</button>
+      <button (click)="showHomeTableOfTeams()" class="btn btn-info" style="margin-left: 10px">Home</button>
+      <button (click)="showAwayTableOfTeams()" class="btn btn-info" style="margin-left: 10px">Away</button>
+    </p>
   </div>
   <div class="panel-body">
-    <table class="table table-striped">
+    <table class="table table-dark table-striped">
       <thead>
       <tr>
         <th>Team</th>
         <th>TeamShct</th>
         <th>D</th>
         <th>C</th>
-        <th>skuska</th>
+        <th>GP</th>
+        <th>W</th>
+        <th>L</th>
+        <th>OL</th>
+        <th>GF : GA</th>
+        <th>P</th>
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let team of teams | async">
-        <td>{{team.teamName}}</td>
-        <td>{{team.teamShortcut}}</td>
+      <tr *ngFor="let team of teamTest ">
+        <td><img src="assets/team_logos/{{team.teamShortcut}}.png"> {{team.teamName}}</td>
+        <td>{{team.teamShortcut | uppercase}}</td>
         <td>{{team.division}}</td>
         <td>{{team.conference}}</td>
-        <td>{{getNumber(team.teamId)}}</td>
+        <td>{{team.gamesPlayed}}</td>
+        <td>{{team.wins}}</td>
+        <td>{{team.loses}}</td>
+        <td>{{team.overtimeLoses}}</td>
+        <td>{{team.goalsFor}}:{{team.goalsAgainst}}</td>
+        <td>{{team.points}}</td>
         <td>
           <button (click)="updateTeam(team.teamId)" class="btn btn-info" style="margin-left: 10px">Update</button>
         <td>
