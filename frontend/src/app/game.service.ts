@@ -82,11 +82,11 @@ export class GameService {
   /**
    * vrati pocet inkasovanych golov v domacich, hostujucih zapasov + celkovo pre tim
    * */
-  getGoalsAgainstHomeTeam(id: number): Observable<any> {
+  getHomeGoalsAgainstTeam(id: number): Observable<any> {
     return this.http.get(`${this.baseUrlGoals}/home/against/${id}`)
   }
 
-  getGoalsAgainstAwayTeam(id: number): Observable<any> {
+  getAwayGoalsAgainstTeam(id: number): Observable<any> {
     return this.http.get(`${this.baseUrlGoals}/away/against/${id}`)
   }
 

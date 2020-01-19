@@ -39,6 +39,10 @@ public class TeamController {
                                            @Valid @RequestBody Team teamDetails) throws ResourceNotFoundException {
         Team team = teamRepository.findById(teamId).orElseThrow(() -> new ResourceNotFoundException("Team not found for this id :: " + teamId));
 
+        team.setTeamName(teamDetails.getTeamName());
+        team.setTeamShortcut(teamDetails.getTeamShortcut());
+        team.setConference(teamDetails.getConference());
+        team.setDivision(teamDetails.getDivision());
 
         final Team updatedTeam = teamRepository.save(team);
         return ResponseEntity.ok(updatedTeam);

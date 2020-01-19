@@ -105,7 +105,7 @@ export class TeamListComponent implements OnInit {
                 this.gameService.getGameStatusByHomeTeam(teamId, "overtime_lose"),
                 this.gameService.getPointsByHomeTeam(teamId),
                 this.gameService.getGoalsForHomeTeam(teamId),
-                this.gameService.getGoalsAgainstHomeTeam(teamId),
+                this.gameService.getAwayGoalsAgainstTeam(teamId),
                 this.gameService.getNumberOfGamesPlayedByHomeTeam(teamId)
               ]).pipe(
                 map(data => {
@@ -153,7 +153,7 @@ export class TeamListComponent implements OnInit {
                 this.gameService.getGameStatusByAwayTeam(teamId, "overtime_lose"),
                 this.gameService.getPointsByAwayTeam(teamId),
                 this.gameService.getGoalsForAwayTeam(teamId),
-                this.gameService.getGoalsAgainstAwayTeam(teamId),
+                this.gameService.getHomeGoalsAgainstTeam(teamId),
                 this.gameService.getNumberOfGamesPlayedByAwayTeam(teamId)
               ]).pipe(
                 map(data => {
